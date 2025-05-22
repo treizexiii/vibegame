@@ -1,0 +1,66 @@
+# Compilés
+/target/
+**/*.rs.bk
+
+# Exécutables
+*.exe
+*.out
+*.app
+*.dll
+*.so
+*.dylib
+
+# Logs de débogage
+*.log
+
+# Fichiers du système d'exploitation
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Fichiers d'environnement de développement
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Fichiers spécifiques à l'éditeur
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# IntelliJ / CLion / Rust Rover
+.idea/
+*.iml
+*.iws
+*.ipr
+.idea_modules/
+out/
+
+# Vim
+*.swp
+*.swo
+
+# Profils de performance et traces
+flamegraph.svg
+perf.data
+perf.data.old
+
+# Fichiers temporaires de Cargo
+.cargo-ok
+Cargo.lock
+
+# Fichiers spécifiques à raylib
+*.pdb
+
+# Fichiers de sauvegarde
+*~
+\#*\#
