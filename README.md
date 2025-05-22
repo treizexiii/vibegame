@@ -1,55 +1,77 @@
-# Vibegame
+# Vibe Game
 
-## Overview
-Vibegame is a simple 2D platformer game inspired by classic titles like Super Mario. The game features a colorful character represented by a rectangle, and players can navigate through various levels while avoiding obstacles and collecting items.
+Un jeu de plateforme 2D minimaliste développé en Rust avec la bibliothèque Raylib.
 
-## Project Structure
-```
-vibegame
-├── src
-│   ├── main.rs          # Entry point of the application
-│   ├── game.rs          # Main game logic and state management
-│   ├── player.rs        # Player character definition and behavior
-│   ├── camera.rs        # Camera management for game view
-│   ├── resources.rs     # Resource loading and management
-│   └── scenes
-│       ├── mod.rs       # Module for different game scenes
-│       └── level.rs     # Level definition and management
-├── assets
-│   ├── textures
-│   │   └── player.rs    # Texture data for the player character
-│   └── sounds
-│       └── jump.rs      # Sound data for jump action
-├── Cargo.toml           # Rust project configuration and dependencies
-└── README.md            # Project documentation
-```
+## Description
 
-## Setup Instructions
-1. Ensure you have Rust and Cargo installed on your machine.
-2. Clone the repository:
+Vibe Game est un jeu de plateforme simple où vous contrôlez un personnage qui peut se déplacer horizontalement et sauter. Le jeu se distingue par son système de saut avec charge, où maintenir la touche d'espace permet de charger un saut plus puissant.
+
+## Fonctionnalités
+
+- Graphismes 2D simples mais expressifs
+- Défilement horizontal avec parallaxe
+- Système de saut avec charge de puissance
+- Effet d'ombre dynamique qui réagit à la hauteur du saut
+- Monde généré procéduralement avec divers éléments de décor
+
+## Contrôles
+
+- **Flèches Gauche/Droite**: Déplacer le personnage
+- **Barre d'espace** (maintenir): Charger un saut
+- **Barre d'espace** (relâcher): Effectuer le saut
+
+## Prérequis
+
+- Rust (édition 2021 ou plus récente)
+- Dépendances :
+  - raylib (v3.7+)
+  - rand (v0.8+)
+
+## Installation
+
+1. Clonez ce dépôt :
    ```
    git clone <repository-url>
    ```
-3. Navigate to the project directory:
+2. Accédez au répertoire du projet :
    ```
    cd vibegame
    ```
-4. Install the required dependencies:
+3. Installez les dépendances requises :
    ```
    cargo build
    ```
-5. Run the game:
+4. Exécutez le jeu :
    ```
    cargo run
    ```
 
-## Gameplay
-- Control the character using the arrow keys or WASD.
-- Jump over obstacles and collect items to score points.
-- Navigate through different levels, each with unique challenges.
+## Architecture du code
 
-## Dependencies
-- raylib: A simple and easy-to-use library for 2D game development in Rust.
+Le projet suit une architecture modulaire avec plusieurs composants :
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for more details.
+- `main.rs` : Point d'entrée et boucle principale du jeu
+- `player.rs` : Logique et rendu du personnage jouable
+- `scenery.rs` : Gestion des éléments du décor et du monde
+- `drawable.rs` : Trait commun pour les objets affichables
+- `utils.rs` : Fonctions utilitaires (génération du monde, gestion des entrées)
+
+## Développement futur
+
+- Ajout d'obstacles et d'ennemis
+- Système de collectibles
+- Niveaux avec objectifs spécifiques
+- Effets sonores et musique d'ambiance
+- Menu principal et système de score
+
+## Contribution
+
+Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou à proposer une pull request.
+
+## Licence
+Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
+
+## Remerciements
+
+- [Raylib](https://www.raylib.com/) pour la bibliothèque graphique
+- [Rust](https://www.rust-lang.org/) pour le langage de programmation
