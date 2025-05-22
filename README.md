@@ -30,7 +30,8 @@ Vibe Game est un jeu de plateforme simple où vous contrôlez un personnage qui 
 ## Installation
 
 1. Clonez ce dépôt :
-   ```git@github.com:treizexiii/vibegame.git
+   ```
+   git clone https://github.com/treizexiii/vibegame.git
    ```
 2. Accédez au répertoire du projet :
    ```
