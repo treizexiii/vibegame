@@ -1,18 +1,16 @@
 use raylib::prelude::*;
 use crate::drawable::Drawable;
 
-// Structure pour représenter le joueur
 pub struct Player {
     position: Vector2,      // Position X (fixe), Y (variable pendant le saut)
-    size: Vector2,          // Taille du joueur
-    velocity_y: f32,        // Vitesse verticale pour le saut
-    is_jumping: bool,       // État de saut
+    size: Vector2,         // Taille du joueur
+    velocity_y: f32,       // Vitesse verticale pour le saut
+    is_jumping: bool,      // État de saut
     is_charging_jump: bool, // État de charge du saut
     jump_charge_time: f32,  // Temps actuel de charge du saut
 }
 
 impl Player {
-    // Constructeur
     pub fn new(position: Vector2, size: Vector2) -> Self {
         Player {
             position,
@@ -24,7 +22,6 @@ impl Player {
         }
     }
 
-    // Mise à jour de la position du joueur (sauts, etc.)
     pub fn update(
         &mut self,
         delta_time: f32,
@@ -41,8 +38,7 @@ impl Player {
                     self.is_charging_jump = true;
                     self.jump_charge_time = 0.0;
                 } else {
-                    self.jump_charge_time =
-                        (self.jump_charge_time + delta_time).min(jump_charge_time_max);
+                    self.jump_charge_time = (self.jump_charge_time + delta_time).min(jump_charge_time_max);
                 }
             } else if self.is_charging_jump {
                 self.is_charging_jump = false;
@@ -66,7 +62,6 @@ impl Player {
         }
     }
 
-    // Dessiner la barre de charge du saut
     pub fn draw_jump_charge(&self, d: &mut RaylibDrawHandle, jump_charge_time_max: f32) {
         if self.is_charging_jump {
             let charge_percent = self.jump_charge_time / jump_charge_time_max;
@@ -84,18 +79,10 @@ impl Player {
             );
         }
     }
-    
-    // Conservons une méthode draw simple qui ne prend que le handle de dessin
-    // pour des cas où l'interface Drawable n'est pas nécessaire
-    pub fn _draw_simple(&self, d: &mut RaylibDrawHandle) {
-        self.draw(d, self.position.x, 800.0); // 800.0 est une valeur par défaut pour screen_width
-    }
 }
 
-// Implémentation du trait Drawable pour Player
 impl Drawable for Player {
     fn draw(&self, d: &mut RaylibDrawHandle, screen_x: f32, _screen_width: f32) {
-        // On utilise screen_x comme position horizontale à la place de self.position.x
         let x = screen_x as i32;
         let y = self.position.y as i32;
         let width = self.size.x as i32;
@@ -110,31 +97,15 @@ impl Drawable for Player {
         let shoes_color = Color::new(160, 40, 40, 255);        // Rouge foncé pour chaussures
         let hair_color = Color::new(80, 50, 20, 255);          // Brun pour cheveux
 
-        // Ombres (fixée au sol, pas au personnage)
-        // let shadow_color = Color::new(0, 0, 0, 50);
-        
-        // Calculer la distance entre le joueur et le sol
-        // Plus le joueur est haut, plus l'ombre est petite et transparente
-        let ground_y = (y + height) as f32;  // Position y du sol où l'ombre sera affichée
-        let player_height_from_ground;
-        if self.is_jumping {
-            player_height_from_ground = (ground_y - self.position.y) as f32;
-        } else {
-            player_height_from_ground = (ground_y - (ground_y + height as f32)) as f32;
-        }
-
-        let shadow_scale = 1.0 - (player_height_from_ground / (height as f32 * 3.0)).min(0.8);
-        let shadow_alpha = (80.0 * shadow_scale) as u8;
-        
-        // Ombre plus petite et plus transparente quand le joueur saute haut
-        d.draw_ellipse(
+        // Ombre
+        let ground_y = (y + height) as f32;
+        d.draw_circle(
             x,
             ground_y as i32,
-            ((width / 2 + 5) as f32 * shadow_scale) as f32,
-            10.0 * shadow_scale,
-            Color::new(0, 0, 0, shadow_alpha)
+            (width / 2) as f32,
+            Color::new(0, 0, 0, 50)
         );
-        
+
         // Jambes
         // Pantalon (gauche)
         d.draw_rectangle(
@@ -152,7 +123,7 @@ impl Drawable for Player {
             height / 2,
             pants_color
         );
-        
+
         // Chaussures
         d.draw_rectangle(
             x - width / 3 - 4,
@@ -177,7 +148,7 @@ impl Drawable for Player {
             height * 3/4,
             body_color
         );
-        
+
         // Contour du corps
         d.draw_rectangle_lines(
             x - width / 2,
@@ -195,7 +166,7 @@ impl Drawable for Player {
             height / 4,
             skin_color
         );
-        
+
         // Contour de tête
         d.draw_rectangle_lines(
             x - width / 2 + 2,
@@ -204,7 +175,7 @@ impl Drawable for Player {
             height / 4,
             skin_outline
         );
-        
+
         // Cheveux
         d.draw_rectangle(
             x - width / 2 + 2,
@@ -229,19 +200,18 @@ impl Drawable for Player {
             height / 16,
             Color::WHITE
         );
-        
-        // Pupilles (suivent légèrement le mouvement)
-        let pupil_offset = if self.velocity_y < 0.0 { -1 } else if self.is_jumping { 1 } else { 0 };
+
+        // Pupilles
         d.draw_rectangle(
             x - width / 5 + 2,
-            y - height / 4 - height / 6 + 2 + pupil_offset,
+            y - height / 4 - height / 6 + 2,
             width / 15,
             height / 20,
             Color::BLACK
         );
         d.draw_rectangle(
             x + width / 10 + 2,
-            y - height / 4 - height / 6 + 2 + pupil_offset,
+            y - height / 4 - height / 6 + 2,
             width / 15,
             height / 20,
             Color::BLACK
@@ -288,7 +258,7 @@ impl Drawable for Player {
             height / 2,
             body_outline
         );
-        
+
         // Bras (droite)
         d.draw_rectangle(
             x + width / 2,
@@ -304,7 +274,7 @@ impl Drawable for Player {
             height / 2,
             body_outline
         );
-        
+
         // Mains
         d.draw_rectangle(
             x - width / 2 - width / 6 - 4,
@@ -329,7 +299,7 @@ impl Drawable for Player {
             y + height / 4,
             Color::new(200, 180, 60, 255)
         );
-        
+
         // Détails du corps - boutons ou fermeture éclair
         for i in 0..3 {
             d.draw_rectangle(
@@ -340,28 +310,8 @@ impl Drawable for Player {
                 Color::new(220, 220, 220, 255)
             );
         }
-        
-        // Animation subtile en fonction de l'état
-        if self.is_jumping {
-            // Position des bras légèrement relevée pendant le saut
-            d.draw_line(
-                x - width / 2,
-                y,
-                x - width / 2 - width / 6,
-                y - height / 10,
-                body_color
-            );
-            d.draw_line(
-                x + width / 2,
-                y,
-                x + width / 2 + width / 6,
-                y - height / 10,
-                body_color
-            );
-        }
     }
 
-    // Les autres méthodes restent inchangées
     fn get_position(&self) -> (f32, f32) {
         (self.position.x, self.position.y)
     }
@@ -371,7 +321,6 @@ impl Drawable for Player {
     }
 
     fn get_layer(&self) -> i32 {
-        // Le joueur est généralement au premier plan
         2
     }
 }

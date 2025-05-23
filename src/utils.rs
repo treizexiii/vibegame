@@ -1,4 +1,4 @@
-use rand::{rng, Rng};
+use rand::{thread_rng, Rng};
 use raylib::{ffi::KeyboardKey, RaylibHandle};
 
 use crate::scenery::{create_scenery_element, Scenery, SceneryType};
@@ -22,7 +22,7 @@ pub fn handle_input(rl: &RaylibHandle) -> (f32, bool) {
 
 // Ajoutez cette fonction pour générer le monde
 pub fn generate_world(ground_level: f32, _screen_width: f32) -> Scenery {
-    let mut rng = rng();
+    let mut rng = thread_rng();
     let mut scenery = Scenery::new();
 
     // Ajouter des arbres

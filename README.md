@@ -75,3 +75,20 @@ Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
 
 - [Raylib](https://www.raylib.com/) pour la bibliothèque graphique
 - [Rust](https://www.rust-lang.org/) pour le langage de programmation
+
+Gameplay :
+Ajouter un système de points bonus à collecter
+Créer différents types de sauts (double saut, dash, etc.)
+Ajouter des power-ups temporaires
+Graphismes :
+Améliorer l'animation du personnage
+Ajouter des effets visuels (particules, transitions)
+Créer des arrière-plans parallaxe plus élaborés
+Interface :
+Ajouter un menu principal
+Créer un système de niveaux
+Afficher un tableau des meilleurs scores
+Mécanique de jeu :
+Ajouter des plateformes mobiles
+Créer des patterns d'obstacles plus complexes
+Implémenter des checkpoints
